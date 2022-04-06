@@ -15,7 +15,7 @@ BatteryTemp_t T_BatteryTemp;
 void GAS_BulkADC_Calc();
 
 static float tempFunc(uint16_t inputTemp){
-	const float a = (float)(1.0)/3984000;
+	const float a = (float)(1.0)/3984;	//B25/85 = 3984 K
 	float answer = (float)(1.0/(a*log((4095.0/(float)inputTemp)-1)+1.0/298.15)-273.15);
 	return answer*10;
 }
@@ -45,7 +45,7 @@ void GAS_BulkADC_select(uint8_t CScount){
 }
 
 
-
+//TODO: Temp error num
 void GAS_BulkADC_Calc(){
 	uint32_t Total = 0;
 	uint16_t Max = 9;
@@ -69,8 +69,15 @@ void GAS_BulkADC_Calc(){
 	T_BatteryTemp.B.HighestTemp = Max;
 	T_BatteryTemp.B.LowestTemp = Min;
 	T_BatteryTemp.B.MeanTemp = (int)(((float)Total)/count);
-	if (Max > 58){
+	if (Max > 580){
 		HAL_GPIO_WritePin(TEMP_OK_GPIO_Port, TEMP_OK_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(LED0_GPIO_Port,LED0_Pin, GPIO_PIN_SET);
+	}
+	else{
+		HAL_GPIO_WritePin(LED0_GPIO_Port,LED0_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(TEMP_OK_GPIO_Port, TEMP_OK_Pin, GPIO_PIN_SET);
 	}
 }
 
