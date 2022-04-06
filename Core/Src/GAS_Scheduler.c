@@ -97,14 +97,14 @@ static inline __attribute__((always_inline)) void GAS_Scheduler_taskCounter_300m
 		Count300ms = 0;
 	}
 
-	if(CScount>9)CScount=0;
+	if(CScount>6)CScount=0;
 
 
 }
 static inline __attribute__((always_inline)) void GAS_Scheduler_taskCounter_1000ms(void)
 {
 
-	HAL_GPIO_TogglePin(LED0_GPIO_Port,LED0_Pin);
+//	HAL_GPIO_TogglePin(LED0_GPIO_Port,LED0_Pin);
 	HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
 
 
