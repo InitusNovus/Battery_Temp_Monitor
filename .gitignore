@@ -3,7 +3,7 @@
 .mxproject
 *.ioc
 .mxproject
-Debug/makefile
+Debug/
 *.list
 *.bin
 *.elf
@@ -14,3 +14,4 @@ Debug/makefile
 .mxproject
 *.ioc
 *.ioc
+*.o
